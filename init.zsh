@@ -189,3 +189,65 @@ unset zfunction{s,}
 zstyle -a ':prezto:load' pmodule 'pmodules'
 pmodload "$pmodules[@]"
 unset pmodules
+
+# Ronan
+
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1000
+
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+
+# ===== History
+setopt append_history # Allow multiple terminal sessions to all append to one zsh command history
+setopt extended_history # save timestamp of command and duration
+setopt inc_append_history # Add comamnds as they are typed, dont wait until shell exit
+setopt hist_expire_dups_first # when trimming history, lose oldest duplicates first
+setopt hist_ignore_dups # Do not write events to history that are duplicates of previous events
+setopt hist_ignore_space # remove command line from history list when first character on the line is a space
+setopt hist_find_no_dups # When searching history dont display results already cycled through twice
+setopt hist_reduce_blanks # Remove extra blanks from each command line being added to history
+setopt hist_verify # dont execute, just expand history
+setopt share_history # imports new commands and appends typed commands to history<Paste>
+
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
+bindkey -s "^F" " fg^M ^M"
+bindkey -s "^K" "^[[A"
+bindkey -s "^J" "^[[B"
+bindkey -s "^@" "^M"
+bindkey jk vi-cmd-mode
+
+
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)		# Include hidden files.
+
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
+# some more ls aliases
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+alias ptpb="curl -F c=@- https://ptpb.pw/ | sed '/^url:/ s/$/.jpeg/'"
+
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+gg() {
+    if [ -n "$1" ]
+    then
+        git --no-pager log -"$1" --graph --all --pretty=format:'%C(red)%h%Creset -%C(yellow)%d%Creset %C(blue)%an%Creset %s %C(green)(%cr)%Creset' --abbrev-commit --date=relative
+    else
+        git --no-pager log --graph --all --pretty=format:'%C(red)%h%Creset -%C(yellow)%d%Creset %C(blue)%an%Creset %s %C(green)(%cr)%Creset' --abbrev-commit --date=relative
+    fi
+}
