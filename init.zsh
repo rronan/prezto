@@ -219,6 +219,7 @@ bindkey -s "^K" "^[[A"
 bindkey -s "^J" "^[[B"
 bindkey -s "^@" "^M"
 bindkey jk vi-cmd-mode
+bindkey -a " " accept-line
 
 
 # Basic auto/tab complete:
@@ -250,4 +251,25 @@ gg() {
     else
         git --no-pager log --graph --all --pretty=format:'%C(red)%h%Creset -%C(yellow)%d%Creset %C(blue)%an%Creset %s %C(green)(%cr)%Creset' --abbrev-commit --date=relative
     fi
+}
+gp() {
+    if [ -n "$1" ] 
+    then
+        MESSAGE="$1"
+    else
+        MESSAGE="WIP"
+    fi
+    git commit -m "$MESSAGE"
+    git pull --rebase
+}
+gpp() {
+    if [ -n "$1" ] 
+    then
+        MESSAGE="$1"
+    else
+        MESSAGE="WIP"
+    fi
+    git commit -m "$MESSAGE"
+    git pull --rebase
+    git push
 }
