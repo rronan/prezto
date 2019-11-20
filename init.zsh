@@ -260,7 +260,7 @@ gp() {
         MESSAGE="WIP"
     fi
     git commit -m "$MESSAGE"
-    git pull --rebase
+    git pull --all --prune
 }
 gpp() {
     if [ -n "$1" ] 
@@ -270,6 +270,6 @@ gpp() {
         MESSAGE="WIP"
     fi
     git commit -m "$MESSAGE"
-    git pull --rebase
+    git pull --all --prune
     git push
 }
