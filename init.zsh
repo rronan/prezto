@@ -270,6 +270,6 @@ gpp() {
         MESSAGE="WIP"
     fi
     git commit -m "$MESSAGE"
-    git pull --all --prune
+    git pull --all --prune --rebase
     git push
 }
