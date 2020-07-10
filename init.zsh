@@ -219,6 +219,7 @@ bindkey -s "^K" "^[[A"
 bindkey -s "^J" "^[[B"
 bindkey -s "^@" "^M"
 bindkey jk vi-cmd-mode
+bindkey -a " " accept-line
 
 
 # Basic auto/tab complete:
@@ -250,7 +251,6 @@ gg() {
         git --no-pager log --graph --all --pretty=format:'%C(red)%h%Creset -%C(yellow)%d%Creset %C(blue)%an%Creset %s %C(green)(%cr)%Creset' --abbrev-commit --date=relative
     fi
 }
-# ===== History
 setopt append_history # Allow multiple terminal sessions to all append to one zsh command history
 setopt extended_history # save timestamp of command and duration
 setopt inc_append_history # Add comamnds as they are typed, dont wait until shell exit
@@ -263,3 +263,24 @@ setopt hist_verify # dont execute, just expand history
 setopt share_history # imports new commands and appends typed commands to history<Paste>
 
 
+gp() {
+    if [ -n "$1" ] 
+    then
+        MESSAGE="$1"
+    else
+        MESSAGE="WIP"
+    fi
+    git commit -m "$MESSAGE"
+    git pull --all --prune
+}
+gpp() {
+    if [ -n "$1" ] 
+    then
+        MESSAGE="$1"
+    else
+        MESSAGE="WIP"
+    fi
+    git commit -m "$MESSAGE"
+    git pull --all --prune --rebase
+    git push
+}
