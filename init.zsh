@@ -239,7 +239,6 @@ bindkey -v '^?' backward-delete-char
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
-alias ptpb="curl -F c=@- https://ptpb.pw/ | sed '/^url:/ s/$/.jpeg/'"
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
@@ -252,6 +251,18 @@ gg() {
         git --no-pager log --graph --all --pretty=format:'%C(red)%h%Creset -%C(yellow)%d%Creset %C(blue)%an%Creset %s %C(green)(%cr)%Creset' --abbrev-commit --date=relative
     fi
 }
+setopt append_history # Allow multiple terminal sessions to all append to one zsh command history
+setopt extended_history # save timestamp of command and duration
+setopt inc_append_history # Add comamnds as they are typed, dont wait until shell exit
+setopt hist_expire_dups_first # when trimming history, lose oldest duplicates first
+setopt hist_ignore_dups # Do not write events to history that are duplicates of previous events
+setopt hist_ignore_space # remove command line from history list when first character on the line is a space
+setopt hist_find_no_dups # When searching history dont display results already cycled through twice
+setopt hist_reduce_blanks # Remove extra blanks from each command line being added to history
+setopt hist_verify # dont execute, just expand history
+setopt share_history # imports new commands and appends typed commands to history<Paste>
+
+
 gp() {
     if [ -n "$1" ] 
     then
