@@ -6,60 +6,30 @@
 #
 
 # Source Prezto.
-if [[ -s "/sequoia/data1/rriochet/prezto/init.zsh" ]]; then
-  source "/sequoia/data1/rriochet/prezto/init.zsh"
+if [[ -s "$HOME/.zprezto/init.zsh" ]]; then
+  source "$HOME/.zprezto/init.zsh"
+fi
+
+# Source dotfiles/aliases.
+if [[ -s "$HOME/dotfiles/aliases.sh" ]]; then
+  source "$HOME/dotfiles/aliases.sh"
 fi
 
 # Customize to your needs...
-. /sequoia/data1/rriochet/anaconda3/etc/profile.d/conda.sh
+. ~/conda/etc/profile.d/conda.sh
 conda activate py36
 
-if [ -f ~/.localrc ]; then
-    . ~/.localrc
-fi
-
-# ===== History
-setopt append_history # Allow multiple terminal sessions to all append to one zsh command history
-setopt extended_history # save timestamp of command and duration
-setopt inc_append_history # Add comamnds as they are typed, don't wait until shell exit
-setopt hist_expire_dups_first # when trimming history, lose oldest duplicates first
-setopt hist_ignore_dups # Do not write events to history that are duplicates of previous events
-setopt hist_ignore_space # remove command line from history list when first character on the line is a space
-setopt hist_find_no_dups # When searching history don't display results already cycled through twice
-setopt hist_reduce_blanks # Remove extra blanks from each command line being added to history
-setopt hist_verify # don't execute, just expand history
-setopt share_history # imports new commands and appends typed commands to history<Paste>
-
-bindkey "^[[A" history-substring-search-up
-bindkey "^[[B" history-substring-search-down
-bindkey -s "^F" " fg^M ^M"
-bindkey -s "^K" "^[[A"
-bindkey -s "^J" "^[[B"
-bindkey -s "^@" "^M"
-
-# some more ls aliases
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-alias ptpb="curl -F c=@- https://ptpb.pw/ | sed '/^url:/ s/$/.jpeg/'"
-
-# Specific to INRIA
-alias Data1="cd /sequoia/data1/rriochet"
-alias Data2="cd /sequoia/data2/rriochet"
-alias Html="cd /meleze/data0/public_html/rriochet"
-alias deploy_qsub='ssh sequoia "deploy_qsub"'
-
-export PATH=$PATH:"/sequoia/data1/rriochet/bin"
 export PATH=$PATH:"~/.local/bin"
-export TORCH_MODEL_ZOO="/sequoia/data1/rriochet/.torch/models"
-export UE_ROOT="/sequoia/data1/rriochet/UnrealEngine"
-PYTHONPATH=$PYTHONPATH:"/sequoia/data1/rriochet"
-PYTHONPATH=$PYTHONPATH:"/sequoia/data1/rriochet/pymunk"
-PYTHONPATH=$PYTHONPATH:"/sequoia/data1/rriochet/intphys/Content/Scripts"
-PYTHONPATH=$PYTHONPATH:"/home/user/caffe2/build"
-PYTHONPATH=$PYTHONPATH:"/sequoia/data1/rriochet/flownet2-pytorch"
-PYTHONPATH=$PYTHONPATH:"/sequoia/data1/rriochet/flownet2-pytorch/networks"
-PYTHONPATH=$PYTHONPATH:"/sequoia/data1/rriochet/flownet2-pytorch/utils"
+PYTHONPATH="/home/ronan:$PYTHONPATH"
+PYTHONPATH="/home/ronan/milvor:$PYTHONPATH"
+PYTHONPATH="/home/ronan/vision:$PYTHONPATH"
+PYTHONPATH="/home/ronan/efficient_det:$PYTHONPATH"
 export PYTHONPATH
 
 export GOOGLE_APPLICATION_CREDENTIALS=~/.gconf/key.json
+source /home/ronan/snap/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export MILVUE_DATA_DIR='/home/ronan/data'
+export TF_FORCE_GPU_ALLOW_GROWTH=true
+export HTML_FOLDER="/home/ronan/scratch"
+export HTML_ADRESS="http://grossac.milvue.com:6007"
+
