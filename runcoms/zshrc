@@ -8,30 +8,8 @@ if [[ -s "$HOME/dotfiles/aliases.sh" ]]; then
   source "$HOME/dotfiles/aliases.sh"
 fi
 
+export PYTHONPATH="$HOME:$PYTHONPATH"
 
-## Customize to your needs
-
-PYTHONPATH="/Users/ronanr:$PYTHONPATH"
-PYTHONPATH="/Users/ronanr/Recurrent-Interaction-Network:$PYTHONPATH"
-PYTHONPATH="/Users/ronanr/multimodal_forward_video:$PYTHONPATH"
-export PYTHONPATH
-export MAINPATH="/Users/ronanr"
-export HTML_FOLDER="/Users/ronanr/scratch"
-export HTML_ADRESS="/Users/ronanr/scratch"
-
-__conda_setup="$('/Users/ronanr/miniconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/ronanr/miniconda/etc/profile.d/conda.sh" ]; then
-        . "/Users/ronanr/miniconda/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/ronanr/miniconda/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-conda activate py36
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source /Users/ronanr/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f "$HOME"/.fzf.zsh ] && source "$HOME"/.fzf.zsh
+source "$HOME"/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
