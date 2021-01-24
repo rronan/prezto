@@ -243,14 +243,6 @@ alias l='ls -CF'
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
-gg() {
-    if [ -n "$1" ]
-    then
-        git --no-pager log -"$1" --graph --all --pretty=format:'%C(red)%h%Creset -%C(yellow)%d%Creset %C(blue)%an%Creset %s %C(green)(%cr)%Creset' --abbrev-commit --date=relative
-    else
-        git --no-pager log --graph --all --pretty=format:'%C(red)%h%Creset -%C(yellow)%d%Creset %C(blue)%an%Creset %s %C(green)(%cr)%Creset' --abbrev-commit --date=relative
-    fi
-}
 setopt append_history # Allow multiple terminal sessions to all append to one zsh command history
 setopt extended_history # save timestamp of command and duration
 setopt inc_append_history # Add comamnds as they are typed, dont wait until shell exit
@@ -263,24 +255,3 @@ setopt hist_verify # dont execute, just expand history
 setopt share_history # imports new commands and appends typed commands to history<Paste>
 
 
-gp() {
-    if [ -n "$1" ] 
-    then
-        MESSAGE="$1"
-    else
-        MESSAGE="WIP"
-    fi
-    git commit -m "$MESSAGE"
-    git pull --all --prune
-}
-gpp() {
-    if [ -n "$1" ] 
-    then
-        MESSAGE="$1"
-    else
-        MESSAGE="WIP"
-    fi
-    git commit -m "$MESSAGE"
-    git pull --all --prune --rebase
-    git push
-}
